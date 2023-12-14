@@ -10,6 +10,7 @@ namespace Laskin
         }
 
         private string rivi = "";
+        private string[] operaatiot = ["+", "-", "/"];
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -95,9 +96,58 @@ namespace Laskin
             textBoxRivi.Text = rivi;
         }
 
+        //Testaa tata
         private void buttonON_Click(object sender, EventArgs e)
         {
-            textBoxRivi.Text = "ei osaa viela";
+            Erottele();
+        }
+
+        //Erottelee laskettavat luvut merkeista
+        // toimii yhdellä operaatiolla
+        // TODO toimimaan useammalla operaatiolla
+        private void Erottele()
+        {
+            string merkki = string.Empty;
+            double osa1 = 0;
+            double osa2 = 0;
+
+            for (int i = 0; i < rivi.Length; i++)
+            {
+                merkki = rivi.Substring(i, 1);
+                if (operaatiot.Contains(merkki))
+                {
+                    osa1 = Convert.ToDouble(rivi.Substring(0, i));
+                    osa2 = Convert.ToDouble(rivi.Substring(i + 1));
+                    break;
+                }
+            }
+
+            Laske(osa1, osa2, merkki);
+
+        }
+
+        //Laskee merkin mukaisen laskun kahdelle luvulle
+        private void Laske(double luku1, double luku2, string merkki)
+        {
+            double tulos = 0;
+
+            if (merkki.Equals("+"))
+            {
+                tulos = luku1 + luku2;
+            }
+
+            if (merkki.Equals("-"))
+            {
+                tulos = luku1 - luku2;
+            }
+
+            if (merkki.Equals("/"))
+            {
+                tulos = luku1 / luku2;
+            }
+
+            rivi = tulos.ToString();
+            textBoxRivi.Text = tulos.ToString();
         }
 
         private void buttonNOLLAA_Click(object sender, EventArgs e)
