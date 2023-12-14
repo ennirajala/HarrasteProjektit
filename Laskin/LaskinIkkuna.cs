@@ -160,6 +160,7 @@ namespace Laskin
 
             if (merkki.Equals("/"))
             {
+                textBoxRivi.Text = "ei osaa vielä jakaa";
                 tulos = luku1 / luku2;
             }
 
