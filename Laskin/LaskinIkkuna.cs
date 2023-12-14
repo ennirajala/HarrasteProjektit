@@ -96,38 +96,55 @@ namespace Laskin
             textBoxRivi.Text = rivi;
         }
 
-        //Testaa tata
+        //Suorittaa tekstikent‰ss‰ olevan merkkijonon mukaisen laskutoimituksen
+        //KESKEN
+        // seuraavaksi tekem‰‰n kerto ja jako laskut oikein
         private void buttonON_Click(object sender, EventArgs e)
         {
-            Erottele();
+            Erottele(rivi);
+
+            //suorittaa listat
+            while (0 < merkit.Count())
+            {
+                double tulos = Laske(luvut.ElementAt(0), luvut.ElementAt(1), merkit.ElementAt(0));
+                luvut.RemoveAt(0);
+                luvut.RemoveAt(0);
+                luvut.Insert(0,tulos);
+                merkit.RemoveAt(0);
+            }
+            textBoxRivi.Text = luvut.ElementAt(0).ToString();
         }
 
-        //Erottelee laskettavat luvut merkeista
-        // toimii yhdell‰ operaatiolla
-        // TODO toimimaan useammalla operaatiolla
-        private void Erottele()
+        List<double> luvut = new List<double>();
+        List<string> merkit = new List<string>();
+
+        //Erottelee annetusta merkkijonosta luvut ja merkit j‰rjestyksess‰ eri listoihin
+        private void Erottele(string s)
         {
             string merkki = string.Empty;
-            double osa1 = 0;
-            double osa2 = 0;
+            double luku = 0;
+            int j = 0;
 
-            for (int i = 0; i < rivi.Length; i++)
+            for (int i = 0; i < s.Length; i++)
             {
-                merkki = rivi.Substring(i, 1);
+                merkki = s.Substring(i, 1);
                 if (operaatiot.Contains(merkki))
                 {
-                    osa1 = Convert.ToDouble(rivi.Substring(0, i));
-                    osa2 = Convert.ToDouble(rivi.Substring(i + 1));
-                    break;
+                    luku = Convert.ToDouble(s.Substring(j, i-j));
+                    luvut.Add(luku);
+                    merkit.Add(merkki);
+                    j = i+1;
+                    
                 }
             }
 
-            Laske(osa1, osa2, merkki);
-
+            luku = Convert.ToDouble(s.Substring(j));
+            luvut.Add(luku);
         }
 
         //Laskee merkin mukaisen laskun kahdelle luvulle
-        private void Laske(double luku1, double luku2, string merkki)
+        // TODO laskuj‰rjestys esim kerto vs +
+        private double Laske(double luku1, double luku2, string merkki)
         {
             double tulos = 0;
 
@@ -146,16 +163,17 @@ namespace Laskin
                 tulos = luku1 / luku2;
             }
 
-            rivi = tulos.ToString();
-            textBoxRivi.Text = tulos.ToString();
+            return tulos;
         }
 
+        //Tyhjent‰‰ tekstikent‰n
         private void buttonNOLLAA_Click(object sender, EventArgs e)
         {
             rivi = "";
             textBoxRivi.Text = rivi;
         }
 
+        //poistaa tekstikent‰n merkkijonon viimeisimm‰n merkin
         private void buttonPyyhi_Click(object sender, EventArgs e)
         {
             if(rivi.Length > 0)
