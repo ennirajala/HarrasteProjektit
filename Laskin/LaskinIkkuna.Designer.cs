@@ -254,7 +254,7 @@
             // 
             // buttonPyyhi
             // 
-            buttonPyyhi.BackColor = Color.FromArgb(224, 224, 224);
+            buttonPyyhi.BackColor = Color.FromArgb(255, 255, 128);
             buttonPyyhi.FlatStyle = FlatStyle.Popup;
             buttonPyyhi.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             buttonPyyhi.Location = new Point(269, 260);
@@ -279,7 +279,7 @@
             buttonNOLLAA.UseVisualStyleBackColor = false;
             buttonNOLLAA.Click += buttonNOLLAA_Click;
             // 
-            // Laskin
+            // LaskinIkkuna
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -305,7 +305,7 @@
             Controls.Add(textBoxRivi);
             ForeColor = Color.Black;
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            Name = "Laskin";
+            Name = "LaskinIkkuna";
             Text = "Laskin";
             Load += Form1_Load;
             ResumeLayout(false);
