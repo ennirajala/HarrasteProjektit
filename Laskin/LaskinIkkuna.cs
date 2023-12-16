@@ -10,7 +10,7 @@ namespace Laskin
         }
 
         private string rivi = "";
-        private string[] operaatiot = ["+", "-", "/"];
+        private string[] operaatiot = ["+", "-", "/", "*"];
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -18,7 +18,7 @@ namespace Laskin
         }
         private void button0_Click(object sender, EventArgs e)
         {
-            rivi+= "0";
+            rivi += "0";
             textBoxRivi.Text = rivi;
         }
         private void button1_Click(object sender, EventArgs e)
@@ -95,24 +95,20 @@ namespace Laskin
             rivi += "/";
             textBoxRivi.Text = rivi;
         }
+        private void buttonKerto_Click(object sender, EventArgs e)
+        {
+            rivi += "*";
+            textBoxRivi.Text = rivi;
+        }
 
         //Suorittaa tekstikent‰ss‰ olevan merkkijonon mukaisen laskutoimituksen
-        //KESKEN
-        // seuraavaksi tekem‰‰n kerto ja jako laskut oikein
         private void buttonON_Click(object sender, EventArgs e)
         {
             Erottele(rivi);
+            LaskeJakoJaKerto(); //yhdist‰ n‰m‰ samaksi aliohjelmaksi
+            LaskePlusJaMiinus();
 
-            //suorittaa listat
-            while (0 < merkit.Count())
-            {
-                double tulos = Laske(luvut.ElementAt(0), luvut.ElementAt(1), merkit.ElementAt(0));
-                luvut.RemoveAt(0);
-                luvut.RemoveAt(0);
-                luvut.Insert(0,tulos);
-                merkit.RemoveAt(0);
-            }
-            textBoxRivi.Text = luvut.ElementAt(0).ToString();
+            textBoxRivi.Text = rivi;
         }
 
         List<double> luvut = new List<double>();
@@ -130,11 +126,11 @@ namespace Laskin
                 merkki = s.Substring(i, 1);
                 if (operaatiot.Contains(merkki))
                 {
-                    luku = Convert.ToDouble(s.Substring(j, i-j));
+                    luku = Convert.ToDouble(s.Substring(j, i - j));
                     luvut.Add(luku);
                     merkit.Add(merkki);
-                    j = i+1;
-                    
+                    j = i + 1;
+
                 }
             }
 
@@ -142,8 +138,45 @@ namespace Laskin
             luvut.Add(luku);
         }
 
+        // Laskee plus- ja miinuslaskut oikealta vasemmalle luvut ja merkit listojen avulla
+        private void LaskePlusJaMiinus()
+        {
+
+            while (0 < merkit.Count())
+            {
+                double tulos = Laske(luvut.ElementAt(0), luvut.ElementAt(1), merkit.ElementAt(0));
+                luvut.RemoveAt(0);
+                luvut.RemoveAt(0);
+                luvut.Insert(0, tulos);
+                merkit.RemoveAt(0);
+            }
+            rivi = luvut.ElementAt(0).ToString();
+        }
+
+        // Laskee jako- ja kertolaskut oikealta vasemmalle x ja y listojen avulla
+        private void LaskeJakoJaKerto()
+        {
+
+            for (int i = 0; i < merkit.Count();)
+            {
+                if (merkit.ElementAt(i).Equals("*") || merkit.ElementAt(i).Equals("/"))
+                {
+                    double tulos = Laske(luvut.ElementAt(i), luvut.ElementAt(i + 1), merkit.ElementAt(i));
+
+                    luvut.RemoveAt(i);
+                    luvut.RemoveAt(i);
+                    luvut.Insert(i, tulos);
+                    merkit.RemoveAt(i);
+
+                }
+                else 
+                { 
+                    i++; 
+                }
+            }
+        }
+
         //Laskee merkin mukaisen laskun kahdelle luvulle
-        // TODO laskuj‰rjestys esim kerto vs +
         private double Laske(double luku1, double luku2, string merkki)
         {
             double tulos = 0;
@@ -164,6 +197,12 @@ namespace Laskin
                 tulos = luku1 / luku2;
             }
 
+            if (merkki.Equals("*"))
+            {
+                textBoxRivi.Text = "ei osaa viel‰ kertoa";
+                tulos = luku1 * luku2;
+            }
+
             return tulos;
         }
 
@@ -171,14 +210,29 @@ namespace Laskin
         private void buttonNOLLAA_Click(object sender, EventArgs e)
         {
             rivi = "";
+            luvut.Clear();
+            merkit.Clear();
             textBoxRivi.Text = rivi;
         }
 
-        //poistaa tekstikent‰n merkkijonon viimeisimm‰n merkin
+        //Poistaa viimeisimm‰n merkin tekstikent‰st‰ ja merkit- tai luvut listasta
         private void buttonPyyhi_Click(object sender, EventArgs e)
         {
-            if(rivi.Length > 0)
+            if (rivi.Length > 0)
             {
+
+                if (operaatiot.Contains(rivi.Substring(rivi.Length - 1)) && merkit.Count() != 0)
+                {
+                    merkit.RemoveAt(merkit.Count() - 1);
+                }
+                else
+                {
+                    if (luvut.Count() != 0)
+                    {
+                        luvut.RemoveAt(luvut.Count() - 1);
+                    }
+                }
+                
                 rivi = rivi.Remove(rivi.Length - 1);
                 textBoxRivi.Text = rivi;
             }

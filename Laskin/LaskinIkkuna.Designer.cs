@@ -46,6 +46,7 @@
             buttonON = new Button();
             buttonPyyhi = new Button();
             buttonNOLLAA = new Button();
+            buttonKerto = new Button();
             SuspendLayout();
             // 
             // textBoxRivi
@@ -202,7 +203,7 @@
             // 
             // buttonJako
             // 
-            buttonJako.BackColor = Color.FromArgb(224, 224, 224);
+            buttonJako.BackColor = Color.DarkGray;
             buttonJako.FlatStyle = FlatStyle.Popup;
             buttonJako.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             buttonJako.Location = new Point(416, 98);
@@ -215,7 +216,7 @@
             // 
             // buttonMiinus
             // 
-            buttonMiinus.BackColor = Color.FromArgb(224, 224, 224);
+            buttonMiinus.BackColor = Color.DarkGray;
             buttonMiinus.FlatStyle = FlatStyle.Popup;
             buttonMiinus.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             buttonMiinus.Location = new Point(416, 152);
@@ -228,7 +229,7 @@
             // 
             // buttonPlus
             // 
-            buttonPlus.BackColor = Color.FromArgb(224, 224, 224);
+            buttonPlus.BackColor = Color.DarkGray;
             buttonPlus.FlatStyle = FlatStyle.Popup;
             buttonPlus.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             buttonPlus.Location = new Point(416, 204);
@@ -244,7 +245,7 @@
             buttonON.BackColor = Color.FromArgb(128, 255, 128);
             buttonON.FlatStyle = FlatStyle.Popup;
             buttonON.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            buttonON.Location = new Point(416, 260);
+            buttonON.Location = new Point(269, 260);
             buttonON.Name = "buttonON";
             buttonON.Size = new Size(75, 23);
             buttonON.TabIndex = 16;
@@ -257,7 +258,7 @@
             buttonPyyhi.BackColor = Color.FromArgb(255, 255, 128);
             buttonPyyhi.FlatStyle = FlatStyle.Popup;
             buttonPyyhi.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            buttonPyyhi.Location = new Point(269, 260);
+            buttonPyyhi.Location = new Point(371, 33);
             buttonPyyhi.Name = "buttonPyyhi";
             buttonPyyhi.Size = new Size(75, 23);
             buttonPyyhi.TabIndex = 12;
@@ -271,7 +272,7 @@
             buttonNOLLAA.FlatAppearance.BorderSize = 0;
             buttonNOLLAA.FlatStyle = FlatStyle.Popup;
             buttonNOLLAA.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            buttonNOLLAA.Location = new Point(416, 34);
+            buttonNOLLAA.Location = new Point(464, 33);
             buttonNOLLAA.Name = "buttonNOLLAA";
             buttonNOLLAA.Size = new Size(75, 23);
             buttonNOLLAA.TabIndex = 17;
@@ -279,12 +280,26 @@
             buttonNOLLAA.UseVisualStyleBackColor = false;
             buttonNOLLAA.Click += buttonNOLLAA_Click;
             // 
+            // buttonKerto
+            // 
+            buttonKerto.BackColor = Color.DarkGray;
+            buttonKerto.FlatStyle = FlatStyle.Popup;
+            buttonKerto.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            buttonKerto.Location = new Point(416, 260);
+            buttonKerto.Name = "buttonKerto";
+            buttonKerto.Size = new Size(75, 23);
+            buttonKerto.TabIndex = 18;
+            buttonKerto.Text = "*";
+            buttonKerto.UseVisualStyleBackColor = false;
+            buttonKerto.Click += buttonKerto_Click;
+            // 
             // LaskinIkkuna
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonFace;
             ClientSize = new Size(551, 345);
+            Controls.Add(buttonKerto);
             Controls.Add(buttonNOLLAA);
             Controls.Add(buttonON);
             Controls.Add(buttonPlus);
@@ -332,5 +347,6 @@
         private Button buttonON;
         private Button buttonPyyhi;
         private Button buttonNOLLAA;
+        private Button buttonKerto;
     }
 }
