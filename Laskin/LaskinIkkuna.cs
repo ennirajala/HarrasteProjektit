@@ -16,6 +16,8 @@ namespace Laskin
         {
 
         }
+
+        #region luku ja operaattori buttonit
         private void button0_Click(object sender, EventArgs e)
         {
             rivi += "0";
@@ -100,12 +102,14 @@ namespace Laskin
             rivi += "*";
             textBoxRivi.Text = rivi;
         }
+        #endregion
 
         //Suorittaa tekstikent‰ss‰ olevan merkkijonon mukaisen laskutoimituksen
+        //TODO yhdist‰ LaskeJakoJaKerto sek‰ LaskePlusJaMiinus samaksi aliohjelmaksi, jolla argumenttina operaattorit joita lasketaan
         private void buttonON_Click(object sender, EventArgs e)
         {
             Erottele(rivi);
-            LaskeJakoJaKerto(); //yhdist‰ n‰m‰ samaksi aliohjelmaksi
+            LaskeJakoJaKerto(); 
             LaskePlusJaMiinus();
 
             textBoxRivi.Text = rivi;
@@ -153,7 +157,7 @@ namespace Laskin
             rivi = luvut.ElementAt(0).ToString();
         }
 
-        // Laskee jako- ja kertolaskut oikealta vasemmalle x ja y listojen avulla
+        // Laskee jako- ja kertolaskut oikealta vasemmalle luvut ja merkit listojen avulla listojen avulla
         private void LaskeJakoJaKerto()
         {
 
@@ -193,20 +197,18 @@ namespace Laskin
 
             if (merkki.Equals("/"))
             {
-                textBoxRivi.Text = "ei osaa viel‰ jakaa";
                 tulos = luku1 / luku2;
             }
 
             if (merkki.Equals("*"))
             {
-                textBoxRivi.Text = "ei osaa viel‰ kertoa";
                 tulos = luku1 * luku2;
             }
 
             return tulos;
         }
 
-        //Tyhjent‰‰ tekstikent‰n
+        //Tyhjent‰‰ tekstikent‰n sek‰ merkit ja luvut listat
         private void buttonNOLLAA_Click(object sender, EventArgs e)
         {
             rivi = "";
